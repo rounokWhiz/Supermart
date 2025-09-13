@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>@ViewBag.Title - Makes Shopping Easy</title>
+
+    <!-- CSS -->
     <link href="~/Content/MyContent/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/MyContent/css/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/MyContent/css/jquery.simpleLens.css" rel="stylesheet" />
@@ -10,61 +12,194 @@
     <link href="~/Content/MyContent/css/sequence-theme.modern-slide-in.css" rel="stylesheet" />
     <link href="~/Content/MyContent/css/slick.css" rel="stylesheet" />
     <link href="~/Content/MyContent/css/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="~/Content/MyContent/Intellisence/css/jquery-ui.min.css" rel="stylesheet" />
+
     <style>
-        #menu .menu-area .navbar-default .navbar-nav .open a {
-            background-color: #d31e1e;
+        /* Global Styles */
+        * { font-family: 'Poppins', sans-serif; }
+        body { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+
+        /* Header */
+        #aa-header { box-shadow: 0 4px 20px rgba(0,0,0,0.1); background: white; }
+        .aa-header-top { background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%); padding: 12px 0; }
+        .aa-header-top .aa-currency a { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 25px; padding: 8px 16px; transition: all 0.3s ease; }
+        .aa-header-top .aa-currency a:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
+        .aa-header-top .cellphone p { color: white; margin: 0; font-weight: 400; }
+        .aa-head-top-nav-right li a { color: white !important; transition: all 0.3s ease; padding: 8px 12px; border-radius: 20px; margin: 0 2px; }
+        .aa-head-top-nav-right li a:hover { background: rgba(255,255,255,0.15); transform: translateY(-1px); }
+        .aa-header-bottom { padding: 20px 0; background: white; }
+
+        /* Logo */
+        .aa-logo a { display: flex; align-items: center; text-decoration: none; transition: all 0.3s ease; }
+        .aa-logo .fa-shopping-cart { font-size: 3rem; color: #4CAF50; margin-right: 15px; background: linear-gradient(135deg, #4CAF50, #2E7D32); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .aa-logo p { margin: 0; font-size: 2.5rem; font-weight: 700; color: #2d3748; line-height: 1; }
+        .aa-logo span { display: block; font-size: 0.9rem; font-weight: 400; color: #718096; margin-top: 5px; }
+        .aa-logo a:hover { transform: scale(1.05); }
+
+        /* Search Box */
+        .aa-search-box { position: relative; max-width: 450px; margin: 0 auto; }
+        .aa-search-box form { display: flex; background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%); border-radius: 50px; box-shadow: 0 10px 30px rgba(76, 175, 80, 0.2); overflow: hidden; transition: all 0.4s ease; border: 2px solid #C8E6C9; }
+        .aa-search-box form:hover { box-shadow: 0 15px 40px rgba(76, 175, 80, 0.3); transform: translateY(-3px); border-color: #A5D6A7; }
+        .aa-search-box form:focus-within { box-shadow: 0 15px 40px rgba(76, 175, 80, 0.4); border-color: #81C784; }
+        .aa-search-box input[type="text"] { flex: 1; border: none; padding: 18px 30px; font-size: 16px; outline: none; background: transparent; color: #374151; font-weight: 500; }
+        .aa-search-box input[type="text"]::placeholder { color: #9ca3af; font-style: italic; font-weight: 400; }
+        .aa-search-box button { background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%) !important; border: none; padding: 18px 30px; color: white; cursor: pointer; transition: all 0.4s ease; border-radius: 0 50px 50px 0; position: relative; overflow: hidden; }
+        .aa-search-box button:before { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; background: rgba(255,255,255,0.2); border-radius: 50%; transform: translate(-50%, -50%); transition: all 0.4s ease; }
+        .aa-search-box button:hover:before { width: 200px; height: 200px; }
+        .aa-search-box button:hover { background: linear-gradient(135deg, #43A047 0%, #1B5E20 100%) !important; transform: scale(1.05); box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4); }
+        .aa-search-box button .fa-search { font-size: 18px; position: relative; z-index: 1; }
+
+        /* Cart */
+        .aa-cartbox { position: relative; }
+        .aa-cart-link { display: flex; flex-direction: column; align-items: center; padding: 15px 20px; background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%); color: white !important; text-decoration: none; border-radius: 15px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3); }
+        .aa-cart-link:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4); }
+        .aa-cart-link .fa-shopping-basket { font-size: 1.8rem; margin-bottom: 5px; }
+        .aa-cart-title { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.5px; }
+        .aa-cart-notify { position: absolute; top: -8px; right: -8px; background: #e53e3e; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; animation: pulse 2s infinite; }
+        @@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .aa-cartbox-summary { background: white; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: none; margin-top: 10px; overflow: hidden; }
+        .aa-cartbox-checkout { background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%) !important; border: none !important; padding: 12px 30px !important; border-radius: 25px !important; font-weight: 600 !important; text-transform: uppercase !important; letter-spacing: 1px !important; transition: all 0.3s ease !important; }
+        .aa-cartbox-checkout:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3) !important; }
+
+        /* Navigation */
+        #menu .menu-area .navbar-default { background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%) !important; border: none; border-radius: 15px; margin: 20px 0; box-shadow: 0 8px 25px rgba(76, 175, 80, 0.2); }
+        #menu .menu-area .navbar-default .navbar-nav > li > a { color: white !important; font-weight: 500 !important; padding: 18px 20px !important; border-radius: 10px !important; margin: 5px 3px !important; transition: all 0.3s ease !important; }
+        #menu .menu-area .navbar-default .navbar-nav > li > a:hover, #menu .menu-area .navbar-default .navbar-nav .open a { background: rgba(255,255,255,0.2) !important; transform: translateY(-2px) !important; color: white !important; }
+        .dropdown-menu { background: white !important; border: none !important; border-radius: 15px !important; box-shadow: 0 10px 40px rgba(0,0,0,0.15) !important; padding: 10px 0 !important; margin-top: 10px !important; }
+        .dropdown-menu li a { color: #2d3748 !important; padding: 12px 25px !important; border-radius: 10px !important; margin: 2px 10px !important; transition: all 0.3s ease !important; }
+        .dropdown-menu li a:hover { background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%) !important; color: white !important; transform: translateX(5px) !important; }
+
+
+
+        /* Existing dropdown CSS */
+        /* ===== DROPDOWN MENU FIX ===== */
+        .dropdown-menu {
+            background: white !important;
+            border: none !important;
+            border-radius: 15px !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15) !important;
+            padding: 10px 0 !important;
+            margin-top: 10px !important;
+            min-width: 200px !important;
         }
 
-        #aa-footer .aa-footer-top .aa-footer-top-area .aa-footer-widget .aa-footer-nav li a {
-            color: #f8f8f8;
-            font-size: 20px;
+            .dropdown-menu li a {
+                color: #2d3748 !important; /* DARK TEXT - THIS IS THE FIX */
+                padding: 12px 25px !important;
+                border-radius: 10px !important;
+                margin: 2px 10px !important;
+                transition: all 0.3s ease !important;
+                display: block !important;
+                text-decoration: none !important;
+                font-weight: 500 !important;
+            }
+
+                .dropdown-menu li a:hover {
+                    background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%) !important;
+                    color: white !important;
+                    transform: translateX(5px) !important;
+                    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3) !important;
+                }
+
+        /* Hover functionality */
+        .navbar-nav li.dropdown:hover > .dropdown-menu {
+            display: block !important;
         }
+
+        .navbar-nav li.dropdown > .dropdown-menu {
+            z-index: 9999 !important;
+        }
+
+
+        /* Footer */
+        #aa-footer .aa-footer-top { background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important; padding: 50px 0 !important; }
+        #aa-footer .aa-footer-widget h3 { color: white !important; font-weight: 600 !important; margin-bottom: 25px !important; font-size: 1.3rem !important; position: relative !important; }
+        #aa-footer .aa-footer-widget h3:after { content: ''; position: absolute; bottom: -10px; left: 0; width: 50px; height: 3px; background: linear-gradient(135deg, #4CAF50, #2E7D32); border-radius: 2px; }
+        #aa-footer .aa-footer-nav li a { color: #cbd5e0 !important; font-size: 16px !important; padding: 8px 0 !important; display: block !important; transition: all 0.3s ease !important; }
+        #aa-footer .aa-footer-nav li a:hover { color: #A5D6A7 !important; transform: translateX(5px) !important; text-decoration: none !important; }
+        #aa-footer address { color: #cbd5e0 !important; font-style: normal !important; line-height: 1.8 !important; }
+        #aa-footer .aa-footer-social a { display: inline-block !important; width: 45px !important; height: 45px !important; background: linear-gradient(135deg, #4CAF50, #2E7D32) !important; color: white !important; text-align: center !important; line-height: 45px !important; margin-right: 10px !important; border-radius: 50% !important; transition: all 0.3s ease !important; font-size: 18px !important; }
+        #aa-footer .aa-footer-social a:hover { transform: translateY(-3px) scale(1.1) !important; box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3) !important; }
+        .aa-footer-bottom { background: #1a202c !important; padding: 20px 0 !important; border-top: 1px solid #2d3748 !important; }
+        .aa-footer-bottom p { color: #cbd5e0 !important; margin: 0 !important; text-align: center !important; }
+        .aa-footer-bottom a { color: #A5D6A7 !important; text-decoration: none !important; font-weight: 500 !important; }
+        .aa-footer-bottom a:hover { color: white !important; }
+
+        /* Scroll top */
+        .scrollToTop { background: linear-gradient(135deg, #4CAF50, #2E7D32) !important; color: white !important; width: 50px !important; height: 50px !important; border-radius: 50% !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3) !important; transition: all 0.3s ease !important; }
+        .scrollToTop:hover { transform: translateY(-3px) !important; box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4) !important; color: white !important; }
+
+        /* Buttons */
+        .btn-primary { background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%) !important; border: none !important; border-radius: 25px !important; padding: 12px 30px !important; font-weight: 600 !important; transition: all 0.3s ease !important; }
+        .btn-primary:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3) !important; }
+
+        /* Responsive */
+        @@media (max-width: 768px) {
+            .aa-logo p { font-size: 1.8rem; }
+            .aa-search-box { margin-top: 20px; }
+            .aa-cartbox { margin-top: 15px; }
+            #menu .menu-area .navbar-default { margin: 10px 0; border-radius: 10px; }
+        }
+
+        /* Loading animation */
+        .loading-animation { background: linear-gradient(45deg, #4CAF50, #2E7D32, #FF9800); background-size: 400% 400%; animation: gradientShift 3s ease infinite; }
+        @@keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     </style>
 
-    @*JS Link*@
-
+    <!-- jQuery -->
     <script src="~/Content/MyContent/js/jquery.min.js"></script>
+    <script src="~/Content/MyContent/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Content/MyContent/js/bootstrap.js"></script>
+    <script src="~/Content/MyContent/js/jquery.smartmenus.js"></script>
+    <script src="~/Content/MyContent/js/jquery.smartmenus.bootstrap.js"></script>
+    <script src="~/Content/MyContent/js/sequence.js"></script>
+    <script src="~/Content/MyContent/js/sequence-theme.modern-slide-in.js"></script>
+    <script src="~/Content/MyContent/js/jquery.simpleGallery.js"></script>
+    <script src="~/Content/MyContent/js/jquery.simpleLens.js"></script>
+    <script src="~/Content/MyContent/js/slick.js"></script>
+    <script src="~/Content/MyContent/js/nouislider.js"></script>
+    <script src="~/Content/MyContent/js/custom.js"></script>
 
-    @*searching products*@
-
-    <link href="~/Content/MyContent/Intellisence/css/jquery-ui.min.css" rel="stylesheet" />
-    <script src="~/Content/MyContent/Intellisence/js/jquery-1.10.2.min.js"></script>
+    <!-- jQuery UI -->
     <script src="~/Content/MyContent/Intellisence/js/jquery-ui.min.js"></script>
-
-    @*Custom JQuery Code For Seraching Product*@
-
-    <script type="text/javascript">
+    <script>
         $(function () {
             $("#searchTxtBox").autocomplete({
                 source: '@Url.Action("GetProducts","Product1")'
             });
         });
+
+        // Modal handling
+        $(function () {
+            $('body').on('click', '.modal-link', function (e) {
+                e.preventDefault();
+                $(this).attr('data-target', '#modal-container');
+                $(this).attr('data-toggle', 'modal');
+            });
+            $('body').on('click', '.modal-close-btn', function () {
+                $('#modal-container').modal('hide');
+            });
+            $('#modal-container').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+            $('#CancelModal').on('click', function () { return false; });
+        });
     </script>
-
 </head>
-<body>
-    @*>>Webpage loader>>*@
 
-    @*<div id="wpf-loader-two">
-            <div class="wpf-loader-two-inner">
-                <span>Loading</span>
-            </div>
-        </div>*@
-    <!-- SCROLL TOP BUTTON -->
+<body>
+    <!-- Scroll Top Button -->
     <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
 
-    <!-- Start header section -->
+    <!-- Header -->
     <header id="aa-header">
-        <!-- start header top  -->
         <div class="aa-header-top">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="aa-header-top-area">
-                            <!-- start header top left -->
                             <div class="aa-header-top-left">
-
-                                <!-- start currency -->
                                 <div class="aa-currency">
                                     <div class="dropdown">
                                         <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -72,36 +207,28 @@
                                         </a>
                                     </div>
                                 </div>
-                                <!-- start cellphone -->
                                 <div class="cellphone hidden-xs">
                                     <p><span class="fa fa-phone"></span>017-xxxx-xxxx</p>
                                 </div>
                             </div>
-                            <!-- header top Right -->
                             <div class="aa-header-top-right">
                                 <ul class="aa-head-top-nav-right">
-
                                     <li><a href="@(Session["username"] != null ? Url.Action("Index", "Account") : Url.Action("Login", "Account"))">My Account</a></li>
-
                                     <li class="hidden-xs">
                                         <a href="@(Session["username"] != null ? Url.Action("Index", "WishList") : Url.Action("Login", "Account"))">
                                             Wishlist @if (@ViewBag.WlItemsNo > 0)
                                             {<text>(@ViewBag.WlItemsNo)</text>}
                                         </a>
                                     </li>
-
                                     <li class="hidden-xs">
                                         <a href="@(Session["username"] != null ? Url.Action("Index", "MyCart") : Url.Action("Login", "Account"))">
                                             My Cart @if (@ViewBag.NoOfItem > 0)
                                             {<text>(@ViewBag.NoOfItem)</text>}
                                         </a>
                                     </li>
-
                                     <li class="hidden-xs"><a href="@(Session["username"] != null ? Url.Action("Index", "CheckOut") : Url.Action("Login", "Account"))">Checkout</a></li>
-
                                     @if (Session["username"] == null)
                                     {
-
                                         <li>@Html.ActionLink("Login", "Login", "Account")</li>
                                     }
                                     else
@@ -116,50 +243,37 @@
                 </div>
             </div>
         </div>
-        <!-- start header bottom  -->
+
         <div class="aa-header-bottom">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="aa-header-bottom-area">
-                            <!-- logo  -->
                             <div class="aa-logo">
-                                <!-- Text based logo -->
                                 <a href="@Url.Action("Index","Home")">
                                     <span class="fa fa-shopping-cart"></span>
-                                    <p>SuperMart<strong>.ORG</strong> <span>Trusted Online Shop</span></p>
+                                    <p>SuperMart<span>Trusted Online Shop</span></p>
                                 </a>
                             </div>
 
-                            <!-- cart box -->
                             <div class="aa-cartbox">
                                 <a class="aa-cart-link" href="#">
                                     <span class="fa fa-shopping-basket"></span>
                                     <span class="aa-cart-title">SHOPPING CART</span>
                                     <span class="aa-cart-notify">@(ViewBag.NoOfItem==null ? 0 :ViewBag.NoOfItem)</span>
                                 </a>
-
                                 <div class="aa-cartbox-summary">
                                     <ul>
-                                        @if (Session["username"] != null)
-                                        {
-                                            Html.RenderPartial("_CartBox");
-                                        }
+                                        @if (Session["username"] != null) { Html.RenderPartial("_CartBox"); }
                                     </ul>
-
                                     <a class="aa-cartbox-checkout aa-primary-btn" href="@Url.Action("Index","CheckOut")">Checkout</a>
-
                                 </div>
                             </div>
 
-                            <!-- search box -->
                             <div class="aa-search-box">
                                 <form action="@Url.Action("Search","Product1")" method="get">
-
                                     <input type="text" name="products" id="searchTxtBox" placeholder="Search product here . . . ">
-
                                     <button type="submit" class="bg-primary"><span class="fa fa-search"></span></button>
-
                                 </form>
                             </div>
                         </div>
@@ -169,12 +283,11 @@
         </div>
     </header>
 
-    <!-- menu -->
+    <!-- Menu -->
     <section id="menu">
         <div class="container">
             <div class="menu-area">
-                <!-- Navbar -->
-                <div class="navbar navbar-default bg-dark" role="navigation">
+                <div class="navbar navbar-default" role="navigation">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
@@ -183,47 +296,52 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <div class="navbar-collapse collapse" style="background-color:forestgreen">
-                        <!-- Left nav -->
+
+                    <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li><a href="@Url.Action("Index","Home")">Home</a></li>
 
-                            @{ MyEcommerceAdmin.Models.MyEcommerceDbContext db = new MyEcommerceAdmin.Models.MyEcommerceDbContext();
-
-                                Dictionary<string, IEnumerable<string>> navbar = new Dictionary<string, IEnumerable<string>>();
-
-
-                                List<MyEcommerceAdmin.Models.Category> Categories = db.Categories.ToList();
-
-                                foreach (MyEcommerceAdmin.Models.Category cat in Categories)
-                                {
-                                    IEnumerable<string> subCat = db.SubCategories.Where(x => x.CategoryID == cat.CategoryID).Select(x => x.Name).ToList();
-                                    navbar.Add(cat.Name, subCat);
-                                }
+                            @{
+                                var db = new MyEcommerceAdmin.Models.MyEcommerceDbContext();
+                                var categories = db.Categories.ToList();
                                 int count = 0;
-                                foreach (KeyValuePair<string, IEnumerable<string>> nav in navbar)
-                                {
-                                    if (count < 8)
-                                    {
-                                        <li>
-                                            <a href="">@nav.Key<span class="caret"></span></a>
-                                            <ul class="dropdown-menu">
+                            }
 
-                                                @foreach (var subNav in nav.Value)
-                                                {
-                                                    <li class="text-primary"><a href="@Url.Action("GetProductsByCategory","Product1", new { categoryName = subNav.Trim()})">@subNav.Trim()</a></li>
-                                                }
-                                            </ul>
-                                        </li>
-                                        count++;
-                                    }
-                                } }
+                            @foreach (var cat in categories)
+                            {
+                                if (count < 8)
+                                {
+                                    var subCategories = db.SubCategories
+                                        .Where(x => x.CategoryID == cat.CategoryID)
+                                        .ToList(); // Keep full SubCategory objects
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            @cat.Name <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            @foreach (var sub in subCategories)
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action("GetProductsByCategory","Product1", new { categoryName = sub.Name.Trim() })">
+                                                        @sub.Name
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                    count++;
+                                }
+                            }
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+
+
 
     <div class="container-fluid">
         <div class="row">
@@ -233,134 +351,74 @@
         </div>
     </div>
 
-    <!-- footer -->
+    <!-- Footer -->
     <footer id="aa-footer">
-        <!-- footer bottom -->
         <div class="aa-footer-top bg-primary">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="aa-footer-top-area">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-6">
-                                    <div class="aa-footer-widget">
-                                        <h3>Important Links</h3>
-                                        <ul class="aa-footer-nav">
-                                            <li><a href="@Url.Action("Index", "admin_Login")">Admin Login</a></li>
-                                            <li><a href="#">Our Services</a></li>
-                                            <li><a href="#">Our Products</a></li>
-                                            <li><a href="#">About Us</a></li>
-                                            <li><a href="#">Contact Us</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    <div class="aa-footer-widget">
-                                        <div class="aa-footer-widget">
-                                            <h3>Policy</h3>
-                                            <ul class="aa-footer-nav">
-                                                <li><a href="#">Delivery</a></li>
-                                                <li><a href="#">Returns</a></li>
-                                                <li><a href="#">Services</a></li>
-                                                <li><a href="#">Discount</a></li>
-                                                <li><a href="#">Special Offer</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    <div class="aa-footer-widget">
-                                        <div class="aa-footer-widget">
-                                            <h3>Useful Links</h3>
-                                            <ul class="aa-footer-nav">
-                                                <li><a href="#">Site Map</a></li>
-                                                <li><a href="#">Search</a></li>
-                                                <li><a href="#">Advanced Search</a></li>
-                                                <li><a href="#">Suppliers</a></li>
-                                                <li><a href="#">FAQ</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    <div class="aa-footer-widget">
-                                        <div class="aa-footer-widget">
-                                            <h3>Contact Information</h3>
-                                            <address>
-                                                <p> Dhaka Bangladesh</p>
-                                                <p><span class="fa fa-phone"></span>017-xxxx-xxxx</p>
-                                                <p><span class="fa fa-envelope"></span>supermart.org</p>
-                                            </address>
-                                            <div class="aa-footer-social">
-                                                <a href="#"><span class="fa fa-facebook"></span></a>
-                                                <a href="#"><span class="fa fa-twitter"></span></a>
-                                                <a href="#"><span class="fa fa-google-plus"></span></a>
-                                                <a href="#"><span class="fa fa-youtube"></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="aa-footer-widget">
+                            <h3>Important Links</h3>
+                            <ul class="aa-footer-nav">
+                                <li><a href="@Url.Action("Index", "admin_Login")">Admin Login</a></li>
+                                <li><a href="#">Our Services</a></li>
+                                <li><a href="#">Our Products</a></li>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="aa-footer-widget">
+                            <h3>Policy</h3>
+                            <ul class="aa-footer-nav">
+                                <li><a href="#">Delivery</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Services</a></li>
+                                <li><a href="#">Discount</a></li>
+                                <li><a href="#">Special Offer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="aa-footer-widget">
+                            <h3>Useful Links</h3>
+                            <ul class="aa-footer-nav">
+                                <li><a href="#">Site Map</a></li>
+                                <li><a href="#">Search</a></li>
+                                <li><a href="#">Advanced Search</a></li>
+                                <li><a href="#">Suppliers</a></li>
+                                <li><a href="#">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="aa-footer-widget">
+                            <h3>Contact Information</h3>
+                            <address>
+                                <p>Dhaka Bangladesh</p>
+                                <p><span class="fa fa-phone"></span>017-xxxx-xxxx</p>
+                                <p><span class="fa fa-envelope"></span>supermart.org</p>
+                            </address>
+                            <div class="aa-footer-social">
+                                <a href="#"><span class="fa fa-facebook"></span></a>
+                                <a href="#"><span class="fa fa-twitter"></span></a>
+                                <a href="#"><span class="fa fa-google-plus"></span></a>
+                                <a href="#"><span class="fa fa-youtube"></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- footer-bottom -->
+
         <div class="aa-footer-bottom">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="aa-footer-bottom-area">
-                            <p>&copy; @DateTime.Now.Year - <a href="https://www.isdb-bisew.org">SuperMart</a></p>
-                        </div>
-                    </div>
-                </div>
+                <p>&copy; @DateTime.Now.Year - <a href="https://www.isdb-bisew.org">SuperMart</a></p>
             </div>
         </div>
     </footer>
-    <script src="~/Content/MyContent/js/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Content/MyContent/js/bootstrap.js"></script>
-    <script src="~/Content/MyContent/js/jquery.smartmenus.js"></script>
-    <script src="~/Content/MyContent/js/jquery.smartmenus.bootstrap.js"></script>
-    <script src="~/Content/MyContent/js/sequence.js"></script>
-    <script src="~/Content/MyContent/js/sequence-theme.modern-slide-in.js"></script>
-    <script src="~/Content/MyContent/js/jquery.simpleGallery.js"></script>
-    <script src="~/Content/MyContent/js/jquery.simpleLens.js"></script>
-    <script src="~/Content/MyContent/js/slick.js"></script>
-    <script src="~/Content/MyContent/js/nouislider.js"></script>
-    <script src="~/Content/MyContent/js/custom.js"></script>
+
     @RenderSection("scripts", false)
-
-    <script type="text/javascript">
-        $(function () {
-
-            // Initalize modal dialog
-
-            $('body').on('click', '.modal-link', function (e) {
-                e.preventDefault();
-                $(this).attr('data-target', '#login-modal');
-                $(this).attr('data-toggle', 'modal');
-            });
-
-            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-
-            $('body').on('click', '.modal-close-btn', function () {
-                $('#login-modal').modal('hide');
-            });
-
-            //clear modal cache, so that new content can be loaded
-            $('#login-modal').on('hidden.bs.modal', function () {
-                $(this).removeData('bs.modal');
-            });
-
-            $('#CancelModal').on('click', function () {
-                return false;
-            });
-        });
-    </script>
-
-
 </body>
 </html>
-
